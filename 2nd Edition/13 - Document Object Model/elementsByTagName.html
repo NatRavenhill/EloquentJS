@@ -1,0 +1,43 @@
+<h1>Heading with a <span>span</span> element.</h1>
+<p>A paragraph with <span>one</span>, <span>two</span> spans.</p>
+
+<script>
+  //returns the given node and its children filtered by a tag name
+  function byTagName(node, tagName) {
+    var tagNameUpper = tagName.toUpperCase();
+
+    return filterNodeList(node.childNodes, tagNameUpper);
+  }
+
+
+  // returns a list where the nodes and their children have the given tag name
+  function filterNodeList(nodeList, tagNameUpper) {
+    var result = [];
+
+    var length = Object.entries(nodeList).length;
+    for (var i = 0; i < length; i++) {
+      var tagName = nodeList[i].tagName;
+      if (tagName !== undefined && tagName === tagNameUpper) {
+        result.push(nodeList[i]);
+      }
+
+      var children = nodeList[i].childNodes;
+      if (children.length > 0) {
+        var innerResult = filterNodeList(children, tagNameUpper);
+        innerResult.forEach((node) => {
+          result.push(node);
+        });
+      }
+    }
+
+    return result;
+  }
+
+  console.log(byTagName(document.body, "h1").length);
+  // → 1
+  console.log(byTagName(document.body, "spAn").length);
+  // → 3
+  var para = document.querySelector("p");
+  console.log(byTagName(para, "span").length);
+  // → 2
+</script>
