@@ -1,0 +1,28 @@
+<html>
+  <body>
+    <script>
+      var lives = 3;
+
+      // The old runGame function. Modify it...
+      function runGame(plans, Display) {
+        // When the player loses a level, remove a life and end the game or restart the level
+        function handleLoss(n) {
+          lives--;
+          if (lives < 1) console.log("You lost!");
+          else startLevel(n);
+        }
+
+        // start a new level
+        function startLevel(n) {
+          runLevel(new Level(plans[n]), Display, function (status) {
+            if (status == "lost") handleLoss(n);
+            else if (n < plans.length - 1) startLevel(n + 1);
+            else console.log("You win!");
+          });
+        }
+        startLevel(0);
+      }
+      runGame(GAME_LEVELS, DOMDisplay);
+    </script>
+  </body>
+</html>
