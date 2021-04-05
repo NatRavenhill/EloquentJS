@@ -10,6 +10,8 @@
       drawZigZag(cx);
       cx.translate(90, 0);
       drawSpiral(cx);
+      cx.translate(60, -10);
+      drawStar(cx);
 
       // draws a trapezium
       function drawTrapezium(cx) {
@@ -54,7 +56,7 @@
         cx.translate(10, 10);
         var radius = 0;
         var angle = 0;
-        for (var n = 0; n < 160; n++) {
+        for (var n = 0; n < 158; n++) {
           radius += 0.25;
           // make a complete circle every 50 iterations
           angle += (Math.PI * 2) / 50;
@@ -64,6 +66,30 @@
         }
 
         cx.stroke();
+      }
+    
+      //draw star
+      function drawStar(cx) {
+        
+        cx.fillStyle = "gold";
+        drawSegment(30, 10, 20, 30);
+        drawSegment(20, 30, 30, 50);
+        drawSegment(30, 50, 50, 60);
+        drawSegment(50, 60, 70, 50);
+        drawSegment(70, 50, 80, 30);
+        drawSegment(80, 30, 70, 10);
+        drawSegment(70, 10, 50, 0);
+        drawSegment(50, 0, 30, 10);
+
+        function drawSegment(startX, startY, endX, endY){
+          cx.beginPath();
+          cx.moveTo(endX, endY);
+          cx.quadraticCurveTo(50, 30, startX, startY);
+          cx.lineTo(50, 30);
+          cx.closePath();
+          cx.fill();
+        }
+
       }
     </script>
   </body>
