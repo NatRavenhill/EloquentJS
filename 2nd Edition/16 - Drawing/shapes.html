@@ -1,0 +1,70 @@
+<html>
+  <body>
+    <canvas width="600" height="200" />
+    <script>
+      var cx = document.querySelector("canvas").getContext("2d");
+      drawTrapezium(cx);
+      cx.translate(90, 0);
+      drawDiamond(cx);
+      cx.translate(90, 0);
+      drawZigZag(cx);
+      cx.translate(90, 0);
+      drawSpiral(cx);
+
+      // draws a trapezium
+      function drawTrapezium(cx) {
+        cx.beginPath();
+        cx.moveTo(30, 10);
+        cx.lineTo(10, 50);
+        cx.lineTo(90, 50);
+        cx.lineTo(70, 10);
+        cx.closePath();
+        cx.stroke();
+      }
+
+      // draws a diamond
+      function drawDiamond(cx) {
+        cx.fillStyle = "red";
+        cx.rotate((45 * Math.PI) / 180);
+        cx.fillRect(40, -40, 40, 40);
+        cx.rotate((-45 * Math.PI) / 180);
+      }
+
+      //draws zig zag
+      function drawZigZag(cx) {
+        cx.beginPath();
+
+        for (var i = 0; i < 6; i++) {
+          zigHelp(cx, i * 10);
+          console.log(i);
+        }
+
+        cx.stroke();
+
+        function zigHelp(cx, start) {
+          cx.moveTo(10, start);
+          cx.lineTo(70, start + 5);
+          cx.lineTo(10, start + 10);
+        }
+      }
+
+      // draws spiral
+      function drawSpiral(cx) {
+        cx.beginPath();
+        cx.translate(10, 10);
+        var radius = 0;
+        var angle = 0;
+        for (var n = 0; n < 160; n++) {
+          radius += 0.25;
+          // make a complete circle every 50 iterations
+          angle += (Math.PI * 2) / 50;
+          var x = 50 / 2 + radius * Math.cos(angle);
+          var y = 50 / 2 + radius * Math.sin(angle);
+          cx.lineTo(x, y);
+        }
+
+        cx.stroke();
+      }
+    </script>
+  </body>
+</html>
