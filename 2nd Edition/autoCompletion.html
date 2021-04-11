@@ -1,0 +1,47 @@
+<input type="text" id="field">
+<div id="suggestions" style="cursor: pointer"></div>
+
+<script>
+  // Builds up an array with global variable names, like
+  // 'alert', 'document', and 'scrollTo'
+  var terms = [];
+  for (var name in window)
+    terms.push(name);
+
+  // Your code here.
+  var suggestionsDiv = document.getElementById("suggestions");
+
+  var fieldInput = document.getElementById("field");
+  fieldInput.addEventListener("input", function(event) {
+    var suggestionsList = makeMatchList();
+    removeOldSuggestions();
+    suggestionsDiv.appendChild(suggestionsList);
+  });
+
+  // removes old suggestions, if any
+  function removeOldSuggestions(){ 
+    var oldSuggestions = document.getElementById("matches");
+    if(oldSuggestions !== null)
+        suggestionsDiv.removeChild(oldSuggestions);
+  }
+
+  // creates a list of matches
+  function makeMatchList() {
+    var currentText = fieldInput.value;
+    var matches = terms.filter(t => t.includes(currentText));
+    //make a list
+    var matchList = document.createElement("ul");
+    matchList.id = "matches";
+    matches.forEach(match => {
+        var listItem = document.createElement("li");
+        listItem.textContent = match;
+        listItem.addEventListener("click", function(event){
+          console.log(fieldInput);
+
+            fieldInput.value = match;
+        });
+        matchList.appendChild(listItem);
+    })
+    return matchList;
+  }
+</script>

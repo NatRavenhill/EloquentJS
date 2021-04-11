@@ -1,0 +1,16 @@
+<textarea id="code">return "hi";</textarea>
+<button id="button">Run</button>
+<pre id="output"></pre>
+
+<script>
+  var runButton = document.getElementById("button");
+  runButton.addEventListener("click", function(event) {
+    var codeTextArea = document.getElementById("code");
+    var actualFunction = new Function(codeTextArea.value);
+    var result = actualFunction();
+    var outputPre = document.getElementById("output"); 
+    outputPre.textContent = result;
+  });
+  
+  // Your code here.
+</script>
